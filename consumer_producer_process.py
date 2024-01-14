@@ -1,6 +1,5 @@
 import time
-from threading import Thread
-from queue import Queue
+from multiprocessing import Process, Queue
 
 
 def consumer(q):
@@ -16,8 +15,9 @@ def producer(q):
         print("Message sent")
         time.sleep(1)
 
-q = Queue()
-t1 = Thread(target = consumer, args=(q,))
-t2 = Thread(target = producer, args=(q,))
-t1.start()
-t2.start()
+if __name__ ==' __main__':
+    q = Queue(maxsize=10)
+    p1 = Process(target = consumer, args=(q,))
+    p2 = Process(target = producer, args=(q,))
+    p1.start()
+    p2.start() 
